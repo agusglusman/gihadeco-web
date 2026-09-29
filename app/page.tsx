@@ -1,21 +1,31 @@
+import Button from "@/components/ui/Button";
+import Logo from "@/components/common/Logo";
+import Navbar from "@/components/layout/navbar";
+import Hero from "@/components/Hero";
+import Services from "@/components/Services";
+import About from "@/components/SobreNosotros";
+import Inspiration from "@/components/Inspiration";
+import Testimonials from "@/components/Testimonials";
+import Detalles from "@/components/Detalles";
+import Footer from "@/components/layout/Footer";
+
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <section className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-muted">
-            Alquileres y eventos
-          </p>
+    <>
+      <Navbar></Navbar>
+      
+      <main className="min-h-screen bg-background text-foreground pt-21">
+        <Hero></Hero>
+        <Services></Services>
+        <About></About>
+        <Inspiration></Inspiration>
+        <Detalles />
+        <Testimonials></Testimonials>
+      </main>
 
-          <h1 className="font-serif text-5xl font-medium tracking-tight md:text-7xl">
-            GIHA DECO
-          </h1>
+      <Footer></Footer>
+    </>
 
-          <p className="mt-6 text-lg text-muted">
-            Diseño, ambientación y piezas para eventos únicos.
-          </p>
-        </div>
-      </section>
-    </main>
   );
 }

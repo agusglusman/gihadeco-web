@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import WhatsappFloatingButton from "@/components/common/WhatsappFloatingButton";
 import "./globals.css";
 
 const theSeasons = localFont({
-  src: "./fonts/TheSeasons.otf",
+  src: "./fonts/The Seasons Regular.ttf",
   variable: "--font-title",
+  display: "swap",
+});
+
+const theSeasonsItalic = localFont({
+  src: "./fonts/The Seasons Italic.ttf",
+  variable: "--font-title-italic",
   display: "swap",
 });
 
@@ -13,6 +20,14 @@ const glacial = localFont({
   variable: "--font-subtitle",
   display: "swap",
 });
+
+const glacialBold = localFont({
+  src: "./fonts/GlacialIndifference-Bold.otf",
+  variable: "--font-subtitle-bold",
+  display: "swap",
+});
+
+
 
 const garet = localFont({
   src: "./fonts/Garet.otf",
@@ -33,9 +48,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${theSeasons.variable} ${glacial.variable} ${garet.variable}`}
+        className={`${theSeasons.variable} ${glacial.variable} ${garet.variable} ${theSeasonsItalic.variable}`}
       >
         {children}
+        <WhatsappFloatingButton />
       </body>
     </html>
   );

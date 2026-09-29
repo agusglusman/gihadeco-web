@@ -18,25 +18,32 @@
   --color-cream: var(--cream);
 
   --font-title: var(--font-title);
+  --font-title-italic: var(--font-title-italic);
   --font-subtitle: var(--font-subtitle);
   --font-body: var(--font-body);
 }
 
-body {
-  font-family: var(--font-body);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.font-title {
   font-family: var(--font-title);
 }
 
-.subtitle,
-nav,
-button {
+.font-title-italic {
+  font-family: var(--font-title-italic);
+}
+
+.font-subtitle {
   font-family: var(--font-subtitle);
+}
+
+.font-subtitle.bold {
+  font-family: var(--font-subtitle-bold);
+}
+
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
 }
