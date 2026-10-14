@@ -8,7 +8,7 @@ export default function Services() {
             <h1 className="font-title text-3xl text-black"> Todo lo que necesitas para un evento perfecto</h1>
             <div className="flex justify-center gap-8 py-6 mx-auto">
                 <Card
-                    image="/imagenHero.JPG"
+                    image="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/ambientacion/imagenAmbientacion.jpeg"
                     title="Ambientación"
                     description="Creamos ambientes unicos que reflejan tu estilo y convierten cada espacio en algo inolvidable"
                     buttonText="conocer más"
@@ -16,7 +16,7 @@ export default function Services() {
                     ButtonVar="servicio">
                 </Card>
                 <Card
-                    image="/imagenHero.JPG"
+                    image="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/organizacion/imagenOrganizacion.jpg"
                     title="Organización"
                     description="Nos encargamos de cada detalle para que disfrutes tu evento sin preocupaciones. Vos soñas, nosotros lo hacemos realidad."
                     buttonText="conocer más"
@@ -24,7 +24,7 @@ export default function Services() {
                     ButtonVar="servicio">
                 </Card>
                 <Card
-                    image="/imagenHero.JPG"
+                    image="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/alquiler/imagenAlquiler.png"
                     title="Alquiler"
                     description="Contamos con un amplio catálogo de piezas únicas para ambientar tu evento."
                     buttonText="Ver catálogo"

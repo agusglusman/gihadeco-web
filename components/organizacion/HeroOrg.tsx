@@ -15,7 +15,7 @@ export default function HeroOrg() {
   return (
     <section className="relative h-[560px] w-full">
       <Image
-        src="/organizacion/hero-organizacion.jpg"
+        src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/organizacion/imagenOrganizacion.jpg"
         alt="Organización de eventos GIHA DECO"
         fill
         priority

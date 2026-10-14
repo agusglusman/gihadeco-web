@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import WhatsappFloatingButton from "@/components/common/WhatsappFloatingButton";
+import SelectionProvider from "@/components/selection/SelectionProvider";
 import "./globals.css";
 
 const theSeasons = localFont({
@@ -50,8 +51,10 @@ export default function RootLayout({
       <body
         className={`${theSeasons.variable} ${glacial.variable} ${garet.variable} ${theSeasonsItalic.variable}`}
       >
-        {children}
-        <WhatsappFloatingButton />
+        <SelectionProvider>
+          {children}
+          <WhatsappFloatingButton />
+        </SelectionProvider>
       </body>
     </html>
   );

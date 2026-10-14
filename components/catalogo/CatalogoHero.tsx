@@ -4,7 +4,7 @@ export default function CatalogoHero() {
     return (
         <section className="relative h-[360px] w-full">
             <Image
-                src="/catalogo/hero-catalogo.jpg"
+                src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/alquiler/imagenAlquiler.png"
                 alt="Catálogo de alquileres GIHA DECO"
                 fill
                 priority

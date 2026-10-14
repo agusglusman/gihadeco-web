@@ -12,7 +12,7 @@ const messages: Record<string, string> = {
 
 export default function WhatsappFloatingButton() {
   const pathname = usePathname();
-  const message = messages[pathname] ?? messages["/"];
+  const message = messages[pathname] ?? (pathname.startsWith("/catalogo/") ? messages["/catalogo"] : messages["/"]);
   const href = `https://wa.me/5491165728905?text=${encodeURIComponent(message)}`;
 
   return (

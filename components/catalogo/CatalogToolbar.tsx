@@ -1,21 +1,25 @@
 import { FaSearch } from "react-icons/fa";
 
 type CatalogToolbarProps = {
+  sort: string;
+  onSortChange: (value: string) => void;
   search: string;
   onSearchChange: (value: string) => void;
   productCount: number;
 };
 
 export default function CatalogToolbar({
+  sort, onSortChange,
   search,
   onSearchChange,
   productCount,
 }: CatalogToolbarProps) {
   return (
     <div>
-      <div className="flex items-center justify-between gap-8">
+      <div className="flex items-center justify-between gap-8 flex-wrap">
         <div className="relative w-[380px]">
           <input
+            aria-label="Buscar productos"
             type="text"
             value={search}
             onChange={(event) => onSearchChange(event.target.value)}
@@ -31,11 +35,11 @@ export default function CatalogToolbar({
             Ordenar por:
           </span>
 
-          <select className="border border-black/10 bg-white px-5 py-3 font-body text-sm outline-none">
-            <option>Más populares</option>
-            <option>Menor precio</option>
-            <option>Mayor precio</option>
-            <option>Nombre A-Z</option>
+          <select aria-label="Ordenar productos" value={sort} onChange={e => onSortChange(e.target.value)} className="border border-black/10 bg-white px-5 py-3 font-body text-sm outline-none">
+
+            <option value="price-asc">Menor precio</option>
+            <option value="price-desc">Mayor precio</option>
+            <option value="name">Nombre A-Z</option>
           </select>
         </div>
       </div>

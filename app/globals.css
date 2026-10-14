@@ -47,3 +47,16 @@
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes selection-enter {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.selection-drawer[open] {
+  animation: selection-enter 220ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selection-drawer[open] { animation: none; }
+}

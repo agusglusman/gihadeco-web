@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/common/Logo";
-import Button from "@/components/ui/Button";
 import { FaInstagram } from "react-icons/fa";
 import Link from "next/link";
+import { SelectionButton } from "@/components/selection/SelectionProvider";
 
 
 const navItems = [
@@ -39,7 +39,7 @@ const navLinkStyles =
 export default function Navbar() {
     const pathname = usePathname();
     const headerRef = useRef<HTMLElement>(null);
-    const defaultSection = pathname === "/" ? "Inicio" : "Servicios";
+    const defaultSection = pathname === "/" ? "Inicio" : pathname === "/mi-seleccion" ? "Mi selección" : "Servicios";
     const [selection, setSelection] = useState({ pathname, label: defaultSection });
     const activeSection = selection.pathname === pathname ? selection.label : defaultSection;
 
@@ -103,12 +103,12 @@ export default function Navbar() {
     return (
         <header ref={headerRef} className="fixed top-0 left-0 z-50 w-full border-b border-black/5 bg-foreground">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-                <Link href="/" className="py-5">
+                <Link href="/" className="w-36 shrink-0 py-5 lg:w-auto">
                     <Logo />
                 </Link>
                 
 
-                <nav aria-label="Navegación principal" className="hidden items-stretch self-stretch gap-8 text-background uppercase md:flex">
+                <nav aria-label="Navegación principal" className="hidden items-stretch self-stretch gap-4 text-sm text-background uppercase md:flex xl:gap-8">
                     {navItems.map((item) => item.label === "Servicios" ? (
                         <div key={item.href} className="group/services flex items-center">
                             <Link
@@ -146,16 +146,16 @@ export default function Navbar() {
                     ))}
                 </nav>
 
-                <div className="hidden md:block">
+                <div className="flex items-center gap-4">
+                    {(pathname === "/catalogo" || pathname.startsWith("/catalogo/") || pathname === "/mi-seleccion") && <SelectionButton />}
                     <a
+                        className="hidden h-10 items-center gap-2 border border-gold px-4 font-body text-sm text-gold transition-colors hover:bg-gold hover:text-foreground xl:inline-flex"
                         href="https://www.instagram.com/gihadeco?igsi=M3RkMGVjYzE1cnQ4&utm_source=qr"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <Button variant="instagram" size="small">
                             Instagram
                             <FaInstagram className="h-4 w-4" />
-                        </Button>
                     </a>
                 </div>
             </div>

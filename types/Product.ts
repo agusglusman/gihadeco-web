@@ -2,9 +2,17 @@ export type Product = {
   id: string;
   name: string;
   category: string;
-  material: string;
+  description: string;
   color: string;
   size: string;
-  price: number;
+  price: number | null;
   image: string;
+  dimensions: { label: string; value: number }[];
+};
+
+export type CatalogProduct = {
+  id: string;
+  name: string;
+  category: string;
+  variants: Product[];
 };

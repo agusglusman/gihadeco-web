@@ -6,7 +6,7 @@ export default function Hero() {
     return (
         <section className="relative h-[420px] w-full md:h-[520px]">
             <Image
-                src="/imagenHero.JPG"
+                src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/home/imagenHero.JPG"
                 alt="Ambientación de GIHA DECO"
                 fill
                 priority

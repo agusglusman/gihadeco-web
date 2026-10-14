@@ -5,87 +5,61 @@ import CatalogSidebar from "./CatalogSidebar";
 import CatalogToolbar from "./CatalogToolbar";
 import ProductCard from "./ProductCard";
 
-import type { Product } from "@/types/Product";
+import type { CatalogProduct } from "@/types/Product";
 
-const products: Product[] = [
-  {
-    id: "pie-001",
-    name: "Lámpara Cristal Dorada",
-    category: "Pies",
-    material: "Metal y cristal",
-    color: "Dorado",
-    size: "Grande",
-    price: 28000,
-    image: "/catalogo/productos/lampara-dorada.jpg",
-  },
-  {
-    id: "can-001",
-    name: "Candelabro Plateado",
-    category: "Candelabros",
-    material: "Metal",
-    color: "Plateado",
-    size: "Mediano",
-    price: 18000,
-    image: "/catalogo/productos/candelabro-plateado.jpg",
-  },
-  {
-    id: "cop-001",
-    name: "Copón Cristal Dorado",
-    category: "Copones",
-    material: "Cristal y metal",
-    color: "Dorado",
-    size: "Mediano",
-    price: 9000,
-    image: "/catalogo/productos/copon-dorado.jpg",
-  },
-  {
-    id: "vaj-001",
-    name: "Bajoplato Dorado",
-    category: "Bajoplatos y vajilla",
-    material: "Metal",
-    color: "Dorado",
-    size: "Mediano",
-    price: 4500,
-    image: "/catalogo/productos/bajoplato-dorado.jpg",
-  },
-];
-
-export default function ProductGrid() {
+export default function ProductGrid({ products }: { products: CatalogProduct[] }) {
   const [selectedCategory, setSelectedCategory] =
     useState("Todos los productos");
 
   const [search, setSearch] = useState("");
 
-  const filteredProducts = products.filter((product) => {
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const [sort, setSort] = useState("name");
+  const normalize = (value: string) => value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const colors = [...new Set(products.flatMap(p => p.variants.map(v => v.color)).filter(Boolean))];
+  const sizes = [...new Set(products.flatMap(p => p.variants.map(v => v.size)).filter(Boolean))];
+  const variants = products.flatMap(product => product.variants);
+  const filteredProducts = variants.filter((product) => {
     const matchesCategory =
       selectedCategory === "Todos los productos" ||
       product.category === selectedCategory;
 
-    const matchesSearch = product.name
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .includes(search.toLowerCase());
+    const matchesSearch = normalize(`${product.name} ${product.category} ${product.color} ${product.size}`)
+      .includes(normalize(search.trim()));
+    const matchesVariant = (!color || product.color === color) && (!size || product.size === size);
+    return matchesCategory && matchesSearch && matchesVariant;
+  });
 
-    return matchesCategory && matchesSearch;
+  filteredProducts.sort((a,b) => {
+    if (sort === "name") return a.name.localeCompare(b.name, "es");
+    const x = a.price ?? Infinity, y = b.price ?? Infinity;
+    if (!Number.isFinite(x)) return Number.isFinite(y) ? 1 : 0;
+    if (!Number.isFinite(y)) return -1;
+    return sort === "price-asc" ? x-y : y-x;
   });
 
   return (
     <section className="bg-[#FCFBF9] py-16">
-      <div className="mx-auto flex max-w-7xl gap-12 px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-12 md:flex-row px-8">
         <CatalogSidebar
+          categories={[...new Set(products.map(p => p.category))]}
+          colors={colors} sizes={sizes} color={color} size={size}
+          onColorChange={setColor} onSizeChange={setSize}
+          onClear={() => { setColor(""); setSize(""); setSearch(""); setSelectedCategory("Todos los productos"); }}
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
         />
 
         <div className="min-w-0 flex-1">
           <CatalogToolbar
+            sort={sort} onSortChange={setSort}
             search={search}
             onSearchChange={setSearch}
             productCount={filteredProducts.length}
           />
 
-          <div className="mt-10 grid grid-cols-4 gap-x-5 gap-y-12">
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
@@ -97,11 +71,11 @@ export default function ProductGrid() {
           {filteredProducts.length === 0 && (
             <div className="py-24 text-center">
               <p className="font-title text-3xl text-foreground">
-                No encontramos productos
+                {products.length === 0 ? "Próximamente, nuestro catálogo" : "No encontramos productos"}
               </p>
 
               <p className="mt-3 font-body text-muted">
-                Probá con otra búsqueda o categoría.
+                {products.length === 0 ? "Consultanos por WhatsApp para conocer nuestras piezas." : "Probá con otra búsqueda o categoría."}
               </p>
             </div>
           )}
