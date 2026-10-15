@@ -1,4 +1,5 @@
 type Props = {
+  className?: string;
   categories: string[]; colors: string[]; sizes: string[];
   selectedCategory: string; color: string; size: string;
   onCategoryChange: (value: string) => void;
@@ -9,7 +10,7 @@ type Props = {
 
 export default function CatalogSidebar(props: Props) {
   return (
-    <aside aria-label="Filtros del catálogo" tabIndex={0} className="w-full shrink-0 max-h-[55dvh] overflow-y-auto overscroll-contain pr-3 md:sticky md:top-28 md:max-h-[calc(100dvh-8rem)] md:self-start md:w-[220px]">
+    <aside aria-label="Filtros del catálogo" tabIndex={0} className={props.className ?? "w-full shrink-0 max-h-[55dvh] overflow-y-auto overscroll-contain pr-3 md:sticky md:top-28 md:max-h-[calc(100dvh-8rem)] md:self-start md:w-[220px]"}>
       <h2 className="font-subtitle text-xs uppercase tracking-[0.25em] text-foreground">Categorías</h2>
       <div className="mt-5 flex flex-col gap-1">
         {["Todos los productos", ...props.categories].map(category => (

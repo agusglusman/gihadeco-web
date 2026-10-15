@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
     FaInstagram,
     FaWhatsapp,
@@ -67,23 +68,23 @@ export default function Footer() {
                         <div className="my-4 h-px w-10 bg-gold" />
 
                         <nav className="flex flex-col items-start gap-3 font-body text-sm">
-                            <a href="#" className="transition-opacity hover:text-gold">
+                            <Link href="/#inicio" className="transition-opacity hover:text-gold">
                                 Inicio
-                            </a>
+                            </Link>
 
-                            <a
-                                href="#sobreNosotros"
+                            <Link
+                                href="/#sobreNosotros"
                                 className="transition-opacity hover:text-gold"
                             >
                                 Sobre nosotros
-                            </a>
+                            </Link>
 
-                            <a
-                                href="#services"
+                            <Link
+                                href="/#services"
                                 className="transition-opacity hover:text-gold"
                             >
                                 Servicios
-                            </a>
+                            </Link>
 
                             <a
                                 href="#contacto"
@@ -103,27 +104,27 @@ export default function Footer() {
                         <div className="my-4 h-px w-10 bg-gold" />
 
                         <div className="flex flex-col gap-3 font-body text-sm">
-                            <a href="/ambientacion" 
+                            <Link href="/ambientacion#inicio-ambientacion"
                                 className="transition-colors hover:text-gold"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                <span>Ambientación</span>
-                            </a>
 
-                            <a href="/organizacion" 
+                                >
+                                <span>Ambientación</span>
+                            </Link>
+
+                            <Link href="/organizacion#inicio-organizacion"
                                 className="transition-colors hover:text-gold"
-                                target="_blank"
-                                rel="noopener noreferrer">
+
+                                >
                                 <span>Organización</span>
-                            </a>
-                            
-                            
-                            <a href="/catalogo"
+                            </Link>
+
+
+                            <Link href="/catalogo#inicio-catalogo"
                                 className="transition-colors hover:text-gold"
-                                target="_blank"
-                                rel="noopener noreferrer">
+
+                                >
                                 <span>Alquiler</span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
 

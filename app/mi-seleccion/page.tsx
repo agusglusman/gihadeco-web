@@ -7,7 +7,7 @@ export const metadata = { title: "Mi selección | GIHA DECO" };
 export default function SelectionPage() {
   return <>
     <Navbar />
-    <main className="min-h-screen bg-background px-6 pb-20 pt-36 text-foreground">
+    <main id="inicio-seleccion" className="min-h-screen bg-background px-6 pb-20 pt-36 text-foreground">
       <div className="mx-auto max-w-6xl">
         <SelectionContent />
       </div>

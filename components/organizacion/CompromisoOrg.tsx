@@ -1,34 +1,24 @@
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
-
-const whatsappNumber = "5491165728905";
-
-const whatsappMessage =
-  "Hola! quiero consultar por la organización de mi evento";
-
-const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-  whatsappMessage
-)}`;
-
 export default function CompromisoOrg() {
   return (
-    <section className="grid min-h-[420px] grid-cols-2 bg-[#F8F7F5] p-8 ">
-      <div className="relative">
+    <section className="grid w-full min-w-0 grid-cols-1 bg-[#F8F7F5] p-6 md:min-h-[420px] md:grid-cols-2 md:p-8">
+      <div className="relative min-h-[280px] min-w-0 md:min-h-[380px]">
         <Image
           src="/organizacion/compromiso-organizacion.jpg"
           alt="Planificación de evento GIHA DECO"
           fill
+          sizes="(max-width: 767px) 100vw, 50vw"
           className="object-cover"
         />
       </div>
 
-      <div className="flex items-center bg-[#F8F7F5] px-16 py-14">
+      <div className="flex min-w-0 items-center bg-[#F8F7F5] py-8 md:px-6 md:py-10 lg:px-16 lg:py-14">
         <div className="max-w-xl text-foreground">
           <p className="font-subtitle text-xs uppercase tracking-[0.3em] text-gold">
             Nuestro compromiso
           </p>
 
-          <h2 className="mt-5 font-title text-4xl leading-tight">
+          <h2 className="mt-5 font-title text-3xl lg:text-4xl leading-tight">
             Eventos bien organizados,
             <br />
             experiencias que se disfrutan.

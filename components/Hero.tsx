@@ -4,7 +4,7 @@ import Button from "@/components/ui/Button";
 
 export default function Hero() {
     return (
-        <section className="relative h-[420px] w-full md:h-[520px]">
+        <section className="relative min-h-[620px] w-full md:h-[520px] md:min-h-0">
             <Image
                 src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/home/imagenHero.JPG"
                 alt="Ambientación de GIHA DECO"
@@ -15,7 +15,7 @@ export default function Hero() {
 
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
 
-            <div className="absolute inset-0 z-10 flex items-center">
+            <div className="relative z-10 flex min-h-[inherit] items-center py-12 md:absolute md:inset-0 md:min-h-0 md:py-0">
                 <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
                     <div className="max-w-xl text-background">
                         <p className="font-subtitle mb-4 text-sm uppercase tracking-[0.25em]">

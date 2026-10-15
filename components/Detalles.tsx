@@ -36,7 +36,7 @@ const features = [
 export default function Detalles() {
     return (
 <section className="bg-foreground py-16">
-                <div className="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-white/10 md:grid-cols-2 md:divide-x md:divide-y-0 lg:grid-cols-4">
+                <div className="mx-auto grid max-w-7xl grid-cols-1 [&>article]:py-9 md:[&>article]:py-0 divide-y divide-white/10 md:grid-cols-2 md:divide-x md:divide-y-0 lg:grid-cols-4">
 
                     {features.map((feature) => (
                         <FeatureCard

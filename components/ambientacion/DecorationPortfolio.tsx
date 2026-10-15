@@ -29,7 +29,7 @@ export default function DecorationPortfolio() {
             Algunas historias que transformamos
           </h2>
 
-          <div className="mt-8 flex justify-center gap-12">
+          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-4 md:gap-x-12">
             {categories.map((category, index) => (
               <button
                 key={category}
@@ -46,7 +46,7 @@ export default function DecorationPortfolio() {
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-5 gap-4">
+        <div className="mx-auto mt-8 grid w-full grid-cols-2 gap-4 lg:grid-cols-5">
           {portfolioImages.map((image, index) => (
             <div
               key={image}
@@ -56,6 +56,7 @@ export default function DecorationPortfolio() {
                 src={image}
                 alt={`Ambientación GIHA DECO ${index + 1}`}
                 fill
+                sizes="(max-width: 1023px) 50vw, 20vw"
                 className="object-cover transition-transform duration-500 hover:scale-105"
               />
             </div>

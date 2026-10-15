@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CatalogSidebar from "./CatalogSidebar";
 import CatalogToolbar from "./CatalogToolbar";
 import ProductCard from "./ProductCard";
@@ -11,6 +11,8 @@ export default function ProductGrid({ products }: { products: CatalogProduct[] }
   const [selectedCategory, setSelectedCategory] =
     useState("Todos los productos");
 
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const filterButton = useRef<HTMLButtonElement>(null);
   const [search, setSearch] = useState("");
 
   const [color, setColor] = useState("");
@@ -39,10 +41,8 @@ export default function ProductGrid({ products }: { products: CatalogProduct[] }
     return sort === "price-asc" ? x-y : y-x;
   });
 
-  return (
-    <section className="bg-[#FCFBF9] py-16">
-      <div className="mx-auto flex max-w-7xl flex-col gap-12 md:flex-row px-8">
-        <CatalogSidebar
+  const filters = (
+    <CatalogSidebar className="w-full"
           categories={[...new Set(products.map(p => p.category))]}
           colors={colors} sizes={sizes} color={color} size={size}
           onColorChange={setColor} onSizeChange={setSize}
@@ -50,16 +50,34 @@ export default function ProductGrid({ products }: { products: CatalogProduct[] }
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
         />
+  );
+
+  return (
+    <section className="bg-[#FCFBF9] pb-10 pt-0 md:py-16">
+      <div className="mx-auto flex max-w-7xl flex-col gap-12 md:flex-row px-3 md:px-8">
+        <div className="hidden w-[220px] shrink-0 self-start overflow-y-auto pr-3 md:sticky md:top-28 md:block md:max-h-[calc(100dvh-8rem)]">
+          {filters}
+        </div>
 
         <div className="min-w-0 flex-1">
+          <div className="sticky top-[76px] z-30 -mx-3 bg-[#FCFBF9] px-3 py-3 shadow-sm md:static md:mx-0 md:p-0 md:shadow-none"
+            onKeyDown={event => { if (event.key === "Escape") { setFiltersOpen(false); filterButton.current?.focus(); } }}>
           <CatalogToolbar
+            filterButtonRef={filterButton} filtersOpen={filtersOpen} onToggleFilters={() => setFiltersOpen(!filtersOpen)}
+            activeFilters={Number(selectedCategory !== "Todos los productos") + Number(Boolean(color)) + Number(Boolean(size))}
             sort={sort} onSortChange={setSort}
             search={search}
             onSearchChange={setSearch}
             productCount={filteredProducts.length}
           />
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12">
+          {filtersOpen && <div id="mobile-catalog-filters" className="absolute inset-x-0 top-full max-h-[calc(100dvh-200px)] overflow-y-auto overscroll-contain border-t border-gold/25 bg-[#FCFBF9] p-5 shadow-lg md:hidden">
+            {filters}
+            <button type="button" onClick={() => { setFiltersOpen(false); filterButton.current?.focus(); }} className="mt-4 w-full bg-gold py-3 font-body text-sm text-white">Ver {filteredProducts.length} productos</button>
+          </div>}
+          </div>
+
+          <div className="mt-5 grid grid-cols-3 gap-x-2 gap-y-6 md:mt-10 md:grid-cols-2 md:gap-x-5 md:gap-y-12 lg:grid-cols-4">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}

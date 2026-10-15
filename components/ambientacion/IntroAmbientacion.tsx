@@ -11,7 +11,7 @@ export default function introAmbientacion() {
 
                 <div className="relative h-[360px] w-full md:h-[460px]">
                     <Image
-                        src="/about.jpg"
+                        src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/ambientacion/nuestraMirada.jpg"
                         alt="Ambientación de GIHA DECO"
                         fill
                         className="object-cover"

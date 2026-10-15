@@ -13,7 +13,7 @@ const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
 export default function HeroOrg() {
   return (
-    <section className="relative h-[560px] w-full">
+    <section className="relative min-h-[640px] w-full md:h-[560px] md:min-h-0">
       <Image
         src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/organizacion/imagenOrganizacion.jpg"
         alt="Organización de eventos GIHA DECO"
@@ -24,7 +24,7 @@ export default function HeroOrg() {
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
 
-      <div className="absolute inset-0 z-10 flex items-center">
+      <div className="relative z-10 flex min-h-[inherit] items-center py-12 md:absolute md:inset-0 md:min-h-0 md:py-0">
         <div className="mx-auto w-full max-w-7xl px-8">
           <div className="max-w-xl text-white">
             <p className="font-subtitle mb-4 text-sm uppercase tracking-[0.25em]">

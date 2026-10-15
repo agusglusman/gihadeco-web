@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button, { ButtonVariant } from "@/components/ui/Button";
 import Image from "next/image";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -20,7 +21,7 @@ export default function Card({
     ButtonVar,
 }: CardProps) {
     return (
-        <article className="overflow-hidden bg-white w-90 h-130">
+        <article className="overflow-hidden bg-white w-90 max-w-full h-130">
             <div className="relative h-[220px] w-full">
                 <Image
                     src={image}
@@ -44,12 +45,12 @@ export default function Card({
 
 
                 <div>
-                    <a href={buttonLink} target="_blank" rel="noopener noreferrer">
+                    <Link href={buttonLink}>
                         <Button variant={ButtonVar}>
                             {buttonText}
                             <FaLongArrowAltRight className="h-4 w-4" />
                         </Button>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </article>

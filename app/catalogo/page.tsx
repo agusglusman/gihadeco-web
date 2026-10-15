@@ -21,14 +21,14 @@ export default async function CatalogoPage() {
     <>
         <Navbar />
      
-        <main className="pt-21">
-            <CatalogoHero />
+        <main id="inicio-catalogo" className="pt-21">
+            <div className="hidden md:block"><CatalogoHero /></div>
             {failed ? (
               <div role="alert" className="bg-cream px-8 py-20 text-center font-body text-foreground">
                 No pudimos cargar el catálogo. Intentá nuevamente en unos minutos o consultanos por WhatsApp.
               </div>
             ) : <ProductGrid products={products} />}
-            <CatalogWhatsappCTA />
+            <div className="hidden md:block"><CatalogWhatsappCTA /></div>
         </main>
 
         <Footer />

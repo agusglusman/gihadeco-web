@@ -12,7 +12,7 @@ export default function DecoracionPage() {
     <>
         <Navbar />
      
-        <main className="pt-21">
+        <main id="inicio-organizacion" className="pt-21">
             <HeroOrg />
             <IntroOrg />
             < ServicioOrg/>

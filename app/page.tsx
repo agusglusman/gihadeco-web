@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <Navbar></Navbar>
       
-      <main className="min-h-screen bg-background text-foreground pt-21">
+      <main id="inicio" className="min-h-screen bg-background text-foreground pt-21">
         <Hero></Hero>
         <Services></Services>
         <About></About>

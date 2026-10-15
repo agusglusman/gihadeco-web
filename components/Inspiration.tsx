@@ -4,11 +4,11 @@ import Image from "next/image";
 
 
 const gallery = [
-    "/inspiration1.jpg",
-    "/inspiration2.jpg",
-    "/inspiration3.jpg",
-    "/inspiration4.jpg",
-    "/inspiration5.jpg",
+    "https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/home/inspiracion/inspiracion1.JPG",
+    "https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/home/inspiracion/inspiracion2.JPG",
+    "https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/home/inspiracion/inspiracion3.JPG",
+    "https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/home/inspiracion/inspiracion5.JPG",
+    "https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/home/inspiracion/inspiracion4.jpeg",
 ];
 
 
@@ -26,17 +26,18 @@ export default function Inspiration() {
                         Momentos que nos inspiran
                     </h2>
 
-                    <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5">
+                    <div className="mt-12 grid grid-cols-4 gap-4 md:grid-cols-6 lg:grid-cols-5">
 
-                        {gallery.map((image) => (
+                        {gallery.map((image, index) => (
                             <div
                                 key={image}
-                                className="relative h-[250px] overflow-hidden"
+                                className={`relative col-span-2 h-[250px] overflow-hidden lg:col-span-1 ${index === 4 ? "col-start-2 md:col-start-4 lg:col-start-auto" : index === 3 ? "md:col-start-2 lg:col-start-auto" : ""}`}
                             >
                                 <Image
                                     src={image}
-                                    alt="Inspiración"
+                                    alt={`Inspiración GIHA DECO ${index + 1}`}
                                     fill
+                                    sizes="(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 20vw"
                                     className="object-cover transition duration-300 hover:scale-105"
                                 />
                             </div>

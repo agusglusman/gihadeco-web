@@ -22,7 +22,7 @@ export default function PortfolioOrg() {
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-5 gap-4">
+        <div className="mt-12 grid grid-cols-2 lg:grid-cols-5 gap-4">
           {images.map((image, index) => (
             <div
               key={image}
@@ -32,6 +32,7 @@ export default function PortfolioOrg() {
                 src={image}
                 alt={`Evento organizado por GIHA DECO ${index + 1}`}
                 fill
+                sizes="(max-width: 1023px) 50vw, 20vw"
                 className="object-cover transition-transform duration-500 hover:scale-105"
               />
             </div>

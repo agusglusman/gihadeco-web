@@ -30,7 +30,7 @@ export default function DecorationQuality() {
           {/* Imagen alta izquierda */}
           <div className="relative row-span-2 overflow-hidden">
             <Image
-              src="/decoracion/calidad-1.jpg"
+              src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/ambientacion/calidad/calidad1.JPG"
               alt="Pieza decorativa GIHA DECO"
               fill
               className="object-cover"
@@ -40,7 +40,7 @@ export default function DecorationQuality() {
           {/* Imagen arriba derecha */}
           <div className="relative overflow-hidden">
             <Image
-              src="/decoracion/calidad-2.jpg"
+              src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/ambientacion/calidad/calidad2.JPG"
               alt="Ambientación GIHA DECO"
               fill
               className="object-cover"
@@ -70,7 +70,7 @@ export default function DecorationQuality() {
 
             <div className="relative overflow-hidden">
               <Image
-                src="/decoracion/calidad-3.jpg"
+                src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/ambientacion/calidad/calidad3.jpeg"
                 alt="Mesa ambientada por GIHA DECO"
                 fill
                 className="object-cover"

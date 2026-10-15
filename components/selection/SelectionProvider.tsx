@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import { FaRegHeart, FaTimes, FaTrash, FaWhatsapp } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaTimes, FaTrash, FaWhatsapp } from "react-icons/fa";
 import ProductImage from "@/components/catalogo/ProductImage";
 import type { Product } from "@/types/Product";
 
@@ -123,12 +123,15 @@ export default function SelectionProvider({ children }: { children: ReactNode })
   </SelectionContext.Provider>;
 }
 
-export function SelectionButton() {
+export function SelectionButton({ compact = false }: { compact?: boolean }) {
   const { items } = useSelection();
-  return <Link href="/mi-seleccion" aria-label={`Mi selección, ${items.length} productos`}
-    className="relative inline-flex h-10 shrink-0 items-center gap-2 border border-gold px-3 font-subtitle text-sm text-gold transition-colors hover:bg-gold hover:text-foreground">
-    <FaRegHeart aria-hidden="true" className="h-4 w-4" /><span>Mi selección</span>
-    <span aria-hidden="true" className="absolute -right-2 -top-3 flex min-w-6 items-center justify-center rounded-full bg-gold px-1.5 py-1 text-[11px] font-bold leading-4 text-white">{items.length}</span>
+  return <Link href="/mi-seleccion#inicio-seleccion" scroll={true} aria-label={`Mi selección, ${items.length} productos`}
+    className={`group/selection relative inline-flex h-10 shrink-0 items-center justify-center gap-2 font-subtitle text-sm text-gold ${compact ? "w-10" : "border border-gold px-3"}`}>
+    <span aria-hidden="true" className="relative h-4 w-4 shrink-0">
+      <FaRegHeart className="absolute inset-0 h-4 w-4 transition-opacity group-hover/selection:opacity-0" />
+      <FaHeart className="absolute inset-0 h-4 w-4 opacity-0 transition-opacity group-hover/selection:opacity-100" />
+    </span>{!compact && <span>Mi selección</span>}
+    <span aria-hidden="true" className={`absolute flex items-center justify-center rounded-full bg-gold font-bold text-white ${compact ? "right-0 top-0 h-4 min-w-4 px-1 text-[9px] leading-none" : "-right-2 -top-3 min-w-6 px-1.5 py-1 text-[11px] leading-4"}`}>{items.length}</span>
   </Link>;
 }
 

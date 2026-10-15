@@ -15,7 +15,7 @@ export default function DecorationCTA() {
     return (
         <section className="relative h-[430px] w-full overflow-hidden">
             <Image
-                src="/decoracion/cta-decoracion.jpg"
+                src="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/ambientacion/imagenCTA.JPG"
                 alt="Ambientación GIHA DECO"
                 fill
                 className="object-cover"

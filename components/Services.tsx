@@ -1,18 +1,17 @@
 import Card from "@/components/ui/Card";
-import Link from "next/link";
 
 export default function Services() {
     return (
-        <section className="text-center pt-26 pb-8" id="services">
+        <section className="text-center pt-26 pb-8 mx-8" id="services">
             <p className="font-subtitle-bold font-bold text-black pb-3 text-xs uppercase tracking-[0.3em]">Nuestros Servicios</p>
             <h1 className="font-title text-3xl text-black"> Todo lo que necesitas para un evento perfecto</h1>
-            <div className="flex justify-center gap-8 py-6 mx-auto">
+            <div className="mx-auto flex flex-col items-center justify-center gap-8 px-6 py-6 md:flex-row md:items-stretch">
                 <Card
                     image="https://ghhmsyrbafnrbqncudao.supabase.co/storage/v1/object/public/sitio/ambientacion/imagenAmbientacion.jpeg"
                     title="Ambientación"
                     description="Creamos ambientes unicos que reflejan tu estilo y convierten cada espacio en algo inolvidable"
                     buttonText="conocer más"
-                    buttonLink="/ambientacion"
+                    buttonLink="/ambientacion#inicio-ambientacion"
                     ButtonVar="servicio">
                 </Card>
                 <Card
@@ -20,7 +19,7 @@ export default function Services() {
                     title="Organización"
                     description="Nos encargamos de cada detalle para que disfrutes tu evento sin preocupaciones. Vos soñas, nosotros lo hacemos realidad."
                     buttonText="conocer más"
-                    buttonLink="/organizacion"
+                    buttonLink="/organizacion#inicio-organizacion"
                     ButtonVar="servicio">
                 </Card>
                 <Card
@@ -28,7 +27,7 @@ export default function Services() {
                     title="Alquiler"
                     description="Contamos con un amplio catálogo de piezas únicas para ambientar tu evento."
                     buttonText="Ver catálogo"
-                    buttonLink="/catalogo"
+                    buttonLink="/catalogo#inicio-catalogo"
                     ButtonVar="primary">
                 </Card>
             </div>
