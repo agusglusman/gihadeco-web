@@ -4,21 +4,23 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import Link from "next/link";
 import { FaHeart, FaRegHeart, FaTimes, FaTrash, FaWhatsapp } from "react-icons/fa";
 import ProductImage from "@/components/catalogo/ProductImage";
-import type { Product } from "@/types/Product";
+import QuantitySelector from "@/components/catalogo/QuantitySelector";
+import type { Product, SelectionItem } from "@/types/Product";
 
 import { getSelectionSummary } from "@/lib/selection-summary";
 
 const STORAGE_KEY = "gihadeco-selection-v1";
 type Selection = {
-  items: Product[]; ready: boolean;
-  add: (product: Product) => void;
+  items: SelectionItem[]; ready: boolean;
+  add: (product: Product, quantity?: number) => void;
+  setQuantity: (id: string, quantity: number) => void;
   remove: (id: string) => void;
   close: () => void;
   clear: () => void;
 };
 const SelectionContext = createContext<Selection | null>(null);
 
-function readSelection(): Product[] {
+function readSelection(): SelectionItem[] {
   try {
     const saved: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
     if (!Array.isArray(saved)) return [];
@@ -29,7 +31,10 @@ function readSelection(): Product[] {
         && Array.isArray(item.dimensions) && item.dimensions.every((d: { label?: unknown; value?: unknown }) =>
           d && typeof d.label === "string" && typeof d.value === "number" && Number.isFinite(d.value));
     });
-    return [...new Map(valid.map(item => [item.id, item])).values()];
+    return [...new Map(valid.map(item => {
+      const quantity = "quantity" in item && typeof item.quantity === "number" && Number.isFinite(item.quantity) ? Math.max(0, Math.floor(item.quantity)) : 1;
+      return [item.id, { ...item, quantity }];
+    })).values()].filter(item => item.quantity > 0);
   } catch { return []; }
 }
 
@@ -40,8 +45,9 @@ export function useSelection() {
 }
 
 export default function SelectionProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<Product[]>([]);
+  const [items, setItems] = useState<SelectionItem[]>([]);
   const { total, missingPrices, message } = getSelectionSummary(items);
+  const [availabilityError, setAvailabilityError] = useState(false);
   const [ready, setReady] = useState(false);
   const [storageFailed, setStorageFailed] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -49,15 +55,30 @@ export default function SelectionProvider({ children }: { children: ReactNode })
   const opener = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => { setItems(readSelection()); setReady(true); });
+    let cancelled = false;
+    async function refresh() {
+      try {
+        const response = await fetch("/api/catalogo", { cache: "no-store" });
+        if (!response.ok) throw new Error("Disponibilidad no disponible");
+        const products: Product[] = await response.json();
+        const current = new Map(products.map(product => [product.id, product]));
+        const next = readSelection().flatMap(item => {
+          const product = current.get(item.id);
+          if (!product || product.available === 0) return [];
+          return [{ ...product, quantity: Math.min(item.quantity, product.available) }];
+        });
+        if (!cancelled) { save(next); setReady(true); }
+      } catch { if (!cancelled) setAvailabilityError(true); }
+    }
+    void refresh();
     const sync = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY || event.key === null) setItems(readSelection());
+      if (event.key === STORAGE_KEY || event.key === null) void refresh();
     };
     window.addEventListener("storage", sync);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener("storage", sync); };
+    return () => { cancelled = true; window.removeEventListener("storage", sync); };
   }, []);
 
-  function save(next: Product[]) {
+  function save(next: SelectionItem[]) {
     setItems(next);
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); setStorageFailed(false); }
     catch { setStorageFailed(true); }
@@ -83,14 +104,16 @@ export default function SelectionProvider({ children }: { children: ReactNode })
   return <SelectionContext.Provider value={{
     items, ready, close,
     clear: () => save([]),
-    add: product => {
-      if (!ready) return;
-      save([...items.filter(item => item.id !== product.id), product]);
+    setQuantity: (id, quantity) => save(items.map(item => item.id === id ? { ...item, quantity: Math.max(0, Math.min(item.available, Math.floor(quantity))) } : item).filter(item => item.quantity > 0)),
+    add: (product, quantity = 1) => {
+      if (!ready || product.available === 0 || quantity <= 0) return;
+      save([...items.filter(item => item.id !== product.id), { ...product, quantity: Math.min(product.available, Math.floor(quantity)) }]);
       open();
     },
     remove: id => save(items.filter(item => item.id !== id)),
   }}>
     {children}
+    {availabilityError && <p role="alert" className="fixed bottom-4 left-4 z-50 max-w-xs bg-cream p-4 text-sm shadow-lg">No pudimos verificar las cantidades disponibles. Recargá la página para volver a intentar.</p>}
     <dialog ref={dialog} aria-labelledby="selection-drawer-title" onClose={restoreFocus}
       onCancel={() => close()}
       onClick={event => { if (event.target === event.currentTarget) close(); }}
@@ -107,7 +130,7 @@ export default function SelectionProvider({ children }: { children: ReactNode })
           <div className="mb-5">
             <p className="font-subtitle text-xs uppercase tracking-wider text-gold">Presupuesto esperado</p>
             <p aria-live="polite" className="mt-2 font-title text-4xl text-gold">{missingPrices ? "Desde " : ""}$ {total.toLocaleString("es-AR")}</p>
-            <p className="mt-2 font-body text-xs leading-5 text-muted">Estimado por una unidad de cada variante, sujeto a confirmación.</p>
+            <p className="mt-2 font-body text-xs leading-5 text-muted">Estimado según las cantidades elegidas, sujeto a confirmación.</p>
             {missingPrices && <p className="mt-1 font-body text-xs text-muted">No incluye las piezas con precio a consultar.</p>}
           </div>
           {ready && items.length > 0 && <a href={`https://wa.me/5491165728905?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer"
@@ -136,7 +159,7 @@ export function SelectionButton({ compact = false }: { compact?: boolean }) {
 }
 
 export function SelectionItems() {
-  const { items, ready, remove, close } = useSelection();
+  const { items, ready, remove, close, setQuantity } = useSelection();
   if (!ready) return <p role="status" className="py-12 font-body text-muted">Cargando tu selección…</p>;
   if (items.length === 0) return <div className="py-12 text-center">
     <FaRegHeart aria-hidden="true" className="mx-auto mb-5 h-8 w-8 text-gold" />
@@ -152,7 +175,8 @@ export function SelectionItems() {
       <div className="min-w-0 flex-1">
         <Link href={`/catalogo/${encodeURIComponent(item.id)}#inicio-producto`} onClick={close} className="font-title text-xl hover:text-gold">{item.name}</Link>
         <p className="mt-2 font-body text-xs capitalize text-muted">{[item.color, item.size === "unico" ? "Único" : item.size].filter(Boolean).join(" · ")}</p>
-        <p className="mt-2 font-body text-sm">{item.price === null ? "Consultar precio" : `$ ${item.price.toLocaleString("es-AR")}`}</p>
+        <p className="mt-2 font-body text-sm">{item.price === null ? "Consultar precio" : `${item.quantity} × $ ${item.price.toLocaleString("es-AR")} = $ ${(Math.round(item.price * 100) * item.quantity / 100).toLocaleString("es-AR")}`}</p>
+        <div className="mt-3"><QuantitySelector value={item.quantity} max={item.available} onChange={quantity => setQuantity(item.id, quantity)} /></div>
         <button type="button" onClick={() => remove(item.id)} aria-label={`Quitar ${item.name} ${item.color} ${item.size} de mi selección`}
           className="mt-3 inline-flex items-center gap-2 py-1 font-body text-xs text-muted hover:text-foreground"><FaTrash aria-hidden="true" /> Quitar</button>
       </div>

@@ -3,13 +3,13 @@ import type { CatalogProduct, Product } from "@/types/Product";
 type Category = { codigo: string; nombre: string };
 type Row = {
   codigo: string; nombre: string; categoria: string;
-  precio_unitario: number | null; descripcion: string | null;
+  cantidad: number | null; precio_unitario: number | null; descripcion: string | null;
   tamano: string | null; color: string | null; imagen_principal: string | null;
   alto_cm: number | null; diametro_cm: number | null; ancho_cm: number | null;
   profundidad_cm: number | null; base_cm: number | null;
 };
 
-const fields = "codigo,nombre,categoria,precio_unitario,descripcion,tamano,color,alto_cm,diametro_cm,ancho_cm,profundidad_cm,base_cm,imagen_principal";
+const fields = "cantidad,codigo,nombre,categoria,precio_unitario,descripcion,tamano,color,alto_cm,diametro_cm,ancho_cm,profundidad_cm,base_cm,imagen_principal";
 
 export async function getCatalog(): Promise<CatalogProduct[]> {
   const url = process.env.SUPABASE_URL;
@@ -52,7 +52,7 @@ export async function getCatalog(): Promise<CatalogProduct[]> {
     const variant: Product = {
       id: row.codigo, name: row.nombre, category, price: row.precio_unitario,
       description: row.descripcion ?? "", color: row.color ?? "", size: row.tamano ?? "",
-      image, dimensions,
+      image, dimensions, available: Math.max(0, Math.floor(row.cantidad ?? 0)),
     };
     const group = groups.get(id) ?? { id, name: row.nombre, category, variants: [] };
     group.variants.push(variant);

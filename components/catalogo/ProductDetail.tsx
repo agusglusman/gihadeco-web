@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaArrowLeft, FaWhatsapp } from "react-icons/fa";
 import type { CatalogProduct, Product } from "@/types/Product";
+import QuantitySelector from "./QuantitySelector";
 import ProductImage from "./ProductImage";
 import { useSelection } from "@/components/selection/SelectionProvider";
 
@@ -17,8 +18,11 @@ export default function ProductDetail({ product, initialCode }: { product: Catal
   const { items, ready, add } = useSelection();
   const variant = product.variants.find(v => v.id === selected) ?? product.variants[0];
   const name = variantName(variant);
-  const saved = items.some(item => item.id === variant.id);
-  const message = `¡Hola! Quería consultar por ${product.name}, variante ${name}.`;
+  const savedItem = items.find(item => item.id === variant.id);
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const quantity = Math.min(variant.available, quantities[variant.id] ?? savedItem?.quantity ?? 1);
+  const saved = Boolean(savedItem);
+  const message = `¡Hola! Quería consultar por ${quantity} × ${product.name}, variante ${name}.`;
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-16 pt-4 lg:px-8">
@@ -66,14 +70,16 @@ export default function ProductDetail({ product, initialCode }: { product: Catal
             )}
           </div>
           <div>
-          <button type="button" disabled={!ready} onClick={() => add(variant)}
+          <div className="mb-4"><QuantitySelector key={variant.id} value={quantity} max={variant.available} onChange={value => setQuantities(previous => ({ ...previous, [variant.id]: value }))} /></div>
+          {variant.available === 0 && <p className="mb-3 font-body text-sm text-muted">Sin disponibilidad por el momento.</p>}
+          <button type="button" disabled={!ready || quantity === 0} onClick={() => add(variant, quantity)}
             className="block w-full border border-gold px-6 py-4 font-subtitle text-sm uppercase tracking-[0.1em] text-gold transition-colors hover:bg-gold hover:text-white disabled:opacity-50">
-            {saved ? "Ver en mi selección" : "Agregar a mi selección"}
+            {saved ? "Actualizar mi selección" : "Agregar a mi selección"}
           </button>
-          <a href={`https://wa.me/5491165728905?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer"
+          {quantity > 0 && <a href={`https://wa.me/5491165728905?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer"
             className="mt-3 inline-flex w-full items-center justify-center gap-3 bg-gold px-6 py-4 font-subtitle text-sm uppercase tracking-[0.1em] text-white transition-colors hover:bg-foreground">
             <FaWhatsapp className="h-5 w-5" aria-hidden="true" /> Consultar esta variante
-          </a>
+          </a>}
           </div>
         </div>
       </div>

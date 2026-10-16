@@ -6,6 +6,7 @@ export type Product = {
   color: string;
   size: string;
   price: number | null;
+  available: number;
   image: string;
   dimensions: { label: string; value: number }[];
 };
@@ -16,3 +17,5 @@ export type CatalogProduct = {
   category: string;
   variants: Product[];
 };
+
+export type SelectionItem = Product & { quantity: number };

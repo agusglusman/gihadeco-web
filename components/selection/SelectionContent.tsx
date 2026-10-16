@@ -28,7 +28,7 @@ export default function SelectionContent() {
       <p aria-live="polite" className="mt-5 break-words font-title text-5xl text-gold lg:text-6xl">
         {ready ? `${missingPrices ? "Desde " : ""}$ ${total.toLocaleString("es-AR")}` : "…"}
       </p>
-      <p className="mt-5 font-body text-xs leading-6 text-muted">Estimado por una unidad de cada variante seleccionada, sujeto a confirmación.</p>
+      <p className="mt-5 font-body text-xs leading-6 text-muted">Estimado según las cantidades elegidas, sujeto a confirmación.</p>
       {missingPrices && <p className="mt-2 font-body text-xs leading-6 text-muted">Hay piezas con precio a consultar que todavía no están incluidas en el importe.</p>}
       {ready && items.length > 0 ? <a href={`https://wa.me/5491165728905?text=${encodeURIComponent(message)}`}
         target="_blank" rel="noopener noreferrer"

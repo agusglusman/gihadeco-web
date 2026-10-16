@@ -3,14 +3,14 @@ begin;
 alter table public.productos enable row level security;
 alter table public.categorias enable row level security;
 
--- El catálogo no expone cantidades ni permite modificar los datos.
+-- El catálogo permite consultar cantidades, pero no permite modificar los datos.
 revoke all privileges on table public.productos from anon;
 revoke all privileges on table public.categorias from anon;
 grant usage on schema public to anon;
 grant select (
   codigo, nombre, categoria, precio_unitario, descripcion, tamano, color,
   alto_cm, diametro_cm, ancho_cm, profundidad_cm, base_cm,
-  imagen_principal, activo
+  imagen_principal, activo, cantidad
 ) on public.productos to anon;
 grant select (codigo, nombre) on public.categorias to anon;
 

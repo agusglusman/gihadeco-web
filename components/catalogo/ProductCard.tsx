@@ -21,7 +21,7 @@ export default function ProductCard({ product }: {
         <Link href={`/catalogo/${encodeURIComponent(product.id)}#inicio-producto`} aria-label={`Ver detalles de ${product.name}, ${product.color} ${product.size}`} className="absolute inset-0">
           <ProductImage key={cover.image} variant={cover} contain />
         </Link>
-        <button type="button" disabled={!ready} aria-label={`${favorite ? "Quitar" : "Agregar"} ${product.name} ${cover.color} ${cover.size} ${favorite ? "de" : "a"} mi selección`}
+        <button type="button" disabled={!ready || (!favorite && product.available === 0)} aria-label={`${favorite ? "Quitar" : "Agregar"} ${product.name} ${cover.color} ${cover.size} ${favorite ? "de" : "a"} mi selección`}
           aria-pressed={favorite} onClick={() => favorite ? remove(cover.id) : add(cover)}
           className="absolute right-0 top-0 flex h-9 w-9 items-center justify-center text-sm md:right-4 md:top-4 md:h-auto md:w-auto md:text-xl text-foreground transition-opacity hover:opacity-50">
           {favorite ? <FaHeart /> : <FaRegHeart />}
