@@ -23,7 +23,7 @@ export default function HeroDeco() {
                             Ambientación
                         </p>
 
-                        <h1 className="font-title text-6xl ">
+                        <h1 className="font-title text-[clamp(36px,10vw,48px)] md:text-6xl ">
                             Diseñamos espacios que{" "}
                             <span className=" text-gold">cuentan historias</span>
                         </h1>

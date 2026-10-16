@@ -13,7 +13,7 @@ export default function DecoracionPage() {
     <>
         <Navbar />
      
-        <main id="inicio-ambientacion" className="pt-21">
+        <main id="inicio-ambientacion" className="pt-[76px] md:pt-21">
             <HeroDeco />
             <IntroAmbientacion />
             <DecorationProcess />

@@ -60,8 +60,8 @@ export default function ServicioOrg() {
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-6">
-          <div className="bg-[#F8F7F5] p-10">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="min-w-0 bg-[#F8F7F5] p-6 md:p-10">
             <h3 className="font-subtitle text-sm uppercase tracking-[0.25em] text-gold">
               Previo al evento
             </h3>
@@ -93,7 +93,7 @@ export default function ServicioOrg() {
             </ul>
           </div>
 
-          <div className="bg-[#F8F7F5] p-10">
+          <div className="min-w-0 bg-[#F8F7F5] p-6 md:p-10">
             <h3 className="font-subtitle text-sm uppercase tracking-[0.25em] text-gold">
               Durante el evento
             </h3>

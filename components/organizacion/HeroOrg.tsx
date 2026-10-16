@@ -31,7 +31,7 @@ export default function HeroOrg() {
                             Organización
                         </p>
 
-            <h1 className="mt-5 font-title text-6xl leading-[1.05]">
+            <h1 className="mt-5 font-title text-[clamp(36px,10vw,48px)] md:text-6xl leading-[1.05]">
               Vos soñás, nosotros nos {" "}
               <span className="text-gold">encargamos.</span>
             </h1>

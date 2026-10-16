@@ -17,11 +17,11 @@ export default function SelectionContent() {
         <h1 className="mt-4 font-title text-5xl">Mi selección</h1>
         <p className="mb-8 mt-5 font-body text-sm leading-7 text-muted">Tus piezas favoritas, reunidas en un solo lugar. Podés ver sus detalles o quitarlas cuando quieras.</p>
       </header>
-      <SelectionItems />
       {ready && items.length > 0 && <button type="button" onClick={clear}
-        className="mt-6 inline-flex items-center gap-2 border border-gold px-5 py-3 font-body text-sm text-gold transition-colors hover:border-foreground hover:bg-foreground hover:text-white">
+        className="mb-4 inline-flex items-center gap-2 border border-gold px-5 py-3 font-body text-sm text-gold transition-colors hover:border-foreground hover:bg-foreground hover:text-white">
         <FaTrash aria-hidden="true" /> Borrar toda la selección
       </button>}
+      <SelectionItems />
     </div>
     <aside className="bg-cream p-7 lg:sticky lg:top-28">
       <h2 className="font-subtitle text-sm uppercase tracking-[0.15em] text-gold">Presupuesto esperado</h2>
@@ -32,7 +32,7 @@ export default function SelectionContent() {
       {missingPrices && <p className="mt-2 font-body text-xs leading-6 text-muted">Hay piezas con precio a consultar que todavía no están incluidas en el importe.</p>}
       {ready && items.length > 0 ? <a href={`https://wa.me/5491165728905?text=${encodeURIComponent(message)}`}
         target="_blank" rel="noopener noreferrer"
-        className="mt-6 inline-flex w-full items-center justify-center gap-3 bg-gold px-5 py-4 text-center font-subtitle text-sm text-white transition-colors hover:bg-foreground">
+        className="mb-4 inline-flex w-full items-center justify-center gap-3 bg-gold px-5 py-4 text-center font-subtitle text-sm text-white transition-colors hover:bg-foreground">
         <FaWhatsapp className="h-5 w-5 shrink-0" aria-hidden="true" /> Consultar selección por WhatsApp
       </a> : <button type="button" disabled className="mt-6 w-full bg-gold/40 px-5 py-4 font-subtitle text-sm text-white">Agregá piezas para consultar</button>}
     </aside>

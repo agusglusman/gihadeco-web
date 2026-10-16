@@ -114,7 +114,7 @@ export default function Navbar() {
                 menuButton.current?.focus();
             }
         }} className="fixed top-0 left-0 z-50 w-full border-b border-black/5 bg-foreground">
-            <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 lg:px-6">
+            <div className="mx-auto flex h-[75px] max-w-7xl items-center justify-between md:h-auto gap-3 px-4 lg:px-6">
                 <Link href="/#inicio" scroll={true} onClick={closeMenu} className="w-36 shrink-0 py-5 md:w-28 lg:w-auto">
                     <Logo />
                 </Link>

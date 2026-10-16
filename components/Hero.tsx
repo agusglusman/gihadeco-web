@@ -18,11 +18,11 @@ export default function Hero() {
             <div className="relative z-10 flex min-h-[inherit] items-center py-12 md:absolute md:inset-0 md:min-h-0 md:py-0">
                 <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
                     <div className="max-w-xl text-background">
-                        <p className="font-subtitle mb-4 text-sm uppercase tracking-[0.25em]">
+                        <p className="font-subtitle mb-4 whitespace-nowrap text-[clamp(8px,2.3vw,11px)] uppercase tracking-[0.08em] md:text-sm md:tracking-[0.25em]">
                             Ambientación · Organización · Alquiler
                         </p>
 
-                        <h1 className="font-title text-6xl ">
+                        <h1 className="font-title text-[clamp(36px,10vw,48px)] leading-tight md:text-6xl ">
                             Transformamos tu evento en una experiencia{" "}
                             <span className=" text-gold">única</span>
                         </h1>

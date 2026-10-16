@@ -146,11 +146,11 @@ export function SelectionItems() {
   </div>;
   return <ul className="divide-y divide-gold/20">
     {items.map(item => <li key={item.id} className="flex gap-4 py-6">
-      <Link href={`/catalogo/${encodeURIComponent(item.id)}`} onClick={close} className="relative h-28 w-20 shrink-0 bg-white">
+      <Link href={`/catalogo/${encodeURIComponent(item.id)}#inicio-producto`} onClick={close} className="relative h-28 w-20 shrink-0 bg-white">
         <ProductImage key={item.image} variant={item} contain sizes="80px" />
       </Link>
       <div className="min-w-0 flex-1">
-        <Link href={`/catalogo/${encodeURIComponent(item.id)}`} onClick={close} className="font-title text-xl hover:text-gold">{item.name}</Link>
+        <Link href={`/catalogo/${encodeURIComponent(item.id)}#inicio-producto`} onClick={close} className="font-title text-xl hover:text-gold">{item.name}</Link>
         <p className="mt-2 font-body text-xs capitalize text-muted">{[item.color, item.size === "unico" ? "Único" : item.size].filter(Boolean).join(" · ")}</p>
         <p className="mt-2 font-body text-sm">{item.price === null ? "Consultar precio" : `$ ${item.price.toLocaleString("es-AR")}`}</p>
         <button type="button" onClick={() => remove(item.id)} aria-label={`Quitar ${item.name} ${item.color} ${item.size} de mi selección`}

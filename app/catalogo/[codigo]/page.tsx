@@ -14,7 +14,7 @@ export default async function ProductPage({ params }: { params: Promise<{ codigo
 
   return <>
     <Navbar />
-    <main className="min-h-screen bg-background pt-28 text-foreground">
+    <main id="inicio-producto" className="min-h-screen bg-background pt-[76px] md:pt-28 text-foreground">
       <ProductDetail key={codigo} product={product} initialCode={codigo} />
     </main>
     <Footer />

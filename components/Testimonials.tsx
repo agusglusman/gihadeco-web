@@ -63,13 +63,13 @@ export default function Testimonials() {
           Lo que dicen nuestros clientes
         </p>
 
-        <div className="mt-8 grid grid-cols-[40px_1fr_40px] items-center gap-4 md:grid-cols-[60px_1fr_60px]">
+        <div className="mt-8 grid grid-cols-[32px_minmax(0,1fr)_32px] items-center gap-2 md:gap-4 md:grid-cols-[60px_minmax(0,1fr)_60px]">
           {/* Flecha izquierda */}
           <button
             type="button"
             onClick={previousTestimonial}
             aria-label="Opinión anterior"
-            className="flex h-10 w-10 items-center justify-center text-foreground transition-opacity hover:opacity-50"
+            className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center text-foreground transition-opacity hover:opacity-50"
           >
             <FaChevronLeft />
           </button>
@@ -110,7 +110,7 @@ export default function Testimonials() {
             type="button"
             onClick={nextTestimonial}
             aria-label="Siguiente opinión"
-            className="flex h-10 w-10 items-center justify-center text-foreground transition-opacity hover:opacity-50"
+            className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center text-foreground transition-opacity hover:opacity-50"
           >
             <FaChevronRight />
           </button>

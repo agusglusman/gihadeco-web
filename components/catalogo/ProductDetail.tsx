@@ -25,9 +25,9 @@ export default function ProductDetail({ product, initialCode }: { product: Catal
       <Link href="/catalogo" className="mb-5 inline-flex items-center gap-3 font-body text-sm text-muted transition-colors hover:text-gold">
         <FaArrowLeft aria-hidden="true" /> Volver al catálogo
       </Link>
-      <div className="grid items-stretch gap-8 md:grid-cols-[1.1fr_1fr] lg:gap-16">
-        <div className={`mx-auto grid w-full max-w-[412px] items-start gap-3 sm:gap-4 ${product.variants.length > 1 ? "grid-cols-[56px_minmax(0,1fr)]" : "grid-cols-1"}`}>
-          {product.variants.length > 1 && <fieldset className="min-w-0">
+      <div className="grid items-stretch gap-5 md:gap-8 md:grid-cols-[1.1fr_1fr] lg:gap-16">
+        <div className={`mx-auto grid w-full max-w-[248px] md:max-w-[412px] items-start gap-3 sm:gap-4 ${product.variants.length > 1 ? "grid-cols-[56px_minmax(0,1fr)]" : "grid-cols-1"}`}>
+          {product.variants.length > 1 && <fieldset className="min-w-0 max-h-[270px] overflow-y-auto md:max-h-none md:overflow-visible">
             <legend className="sr-only">Elegí tu variante</legend>
             <div className="flex flex-col gap-2">
               {product.variants.map(option => (
@@ -43,8 +43,8 @@ export default function ProductDetail({ product, initialCode }: { product: Catal
               ))}
             </div>
           </fieldset>}
-          <div className="relative mx-auto aspect-[2/3] w-full max-w-[340px] overflow-hidden md:max-w-[min(340px,calc(66.667dvh-150px))]">
-            <ProductImage key={variant.image} variant={variant} sizes="(max-width: 767px) 75vw, 340px" />
+          <div className="relative mx-auto aspect-[2/3] w-full max-w-[180px] overflow-hidden md:max-w-[min(340px,calc(66.667dvh-150px))]">
+            <ProductImage key={variant.image} variant={variant} sizes="(max-width: 767px) 180px, 340px" />
           </div>
         </div>
         <div className="flex flex-col justify-between gap-5 md:py-2">

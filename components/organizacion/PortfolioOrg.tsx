@@ -22,11 +22,11 @@ export default function PortfolioOrg() {
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="mt-12 grid grid-cols-4 lg:grid-cols-5 gap-4">
           {images.map((image, index) => (
             <div
               key={image}
-              className="relative h-[280px] overflow-hidden"
+              className={`relative col-span-2 h-[280px] overflow-hidden lg:col-span-1 ${index === images.length - 1 ? "col-start-2 lg:col-start-auto" : ""}`}
             >
               <Image
                 src={image}

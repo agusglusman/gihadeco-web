@@ -21,7 +21,7 @@ export default async function CatalogoPage() {
     <>
         <Navbar />
      
-        <main id="inicio-catalogo" className="pt-21">
+        <main id="inicio-catalogo" className="pt-[76px] md:pt-21">
             <div className="hidden md:block"><CatalogoHero /></div>
             {failed ? (
               <div role="alert" className="bg-cream px-8 py-20 text-center font-body text-foreground">

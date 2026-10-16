@@ -18,7 +18,7 @@ export default function ProductCard({ product }: {
   return (
     <article className="min-w-0">
       <div className="group relative aspect-[2/3] w-full overflow-hidden bg-[#F8F7F5]">
-        <Link href={`/catalogo/${encodeURIComponent(product.id)}`} aria-label={`Ver detalles de ${product.name}, ${product.color} ${product.size}`} className="absolute inset-0">
+        <Link href={`/catalogo/${encodeURIComponent(product.id)}#inicio-producto`} aria-label={`Ver detalles de ${product.name}, ${product.color} ${product.size}`} className="absolute inset-0">
           <ProductImage key={cover.image} variant={cover} contain />
         </Link>
         <button type="button" disabled={!ready} aria-label={`${favorite ? "Quitar" : "Agregar"} ${product.name} ${cover.color} ${cover.size} ${favorite ? "de" : "a"} mi selección`}
@@ -31,7 +31,7 @@ export default function ProductCard({ product }: {
         <h3 className="font-subtitle text-[10px] leading-4 uppercase tracking-normal md:text-xs md:tracking-[0.12em] text-foreground">{product.name}</h3>
         <p className="mt-1 font-body text-[10px] md:mt-2 md:text-xs capitalize text-muted">{[product.color, product.size === "unico" ? "Único" : product.size].filter(Boolean).join(" · ")}</p>
         <p className="mt-2 font-body text-xs md:mt-4 md:text-sm text-foreground">{priceLabel}</p>
-        <Link href={`/catalogo/${encodeURIComponent(cover.id)}`}
+        <Link href={`/catalogo/${encodeURIComponent(cover.id)}#inicio-producto`}
           className="mt-2 block w-full text-center border border-gold px-1 py-2 font-subtitle text-[9px] uppercase tracking-normal md:mt-5 md:px-5 md:py-3 md:text-xs md:tracking-[0.15em] text-gold transition-colors hover:bg-gold hover:text-white">Ver detalles</Link>
       </div>
 
