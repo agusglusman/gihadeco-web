@@ -58,8 +58,15 @@ export default function ProductDetail({ product, initialCode }: { product: Catal
           <div className="my-4 h-px w-12 bg-gold" />
           </div>
           <div aria-live="polite" aria-atomic="true">
-            <p className="font-body text-sm capitalize text-muted">{name}</p>
-            <p className="mt-3 font-title text-2xl">{variant.price === null ? "Consultar precio" : `$ ${variant.price.toLocaleString("es-AR")}`}</p>
+            <div className="flex items-end gap-4 md:block">
+              <div className="min-w-0">
+                <p className="font-body text-sm capitalize text-muted">{name}</p>
+                <p className="mt-3 font-title text-2xl">{variant.price === null ? "Consultar precio" : `$ ${variant.price.toLocaleString("es-AR")}`}</p>
+              </div>
+              <div className="ml-auto w-[138px] shrink-0 md:hidden">
+                <QuantitySelector key={variant.id} value={quantity} max={variant.available} onChange={value => setQuantities(previous => ({ ...previous, [variant.id]: value }))} />
+              </div>
+            </div>
             {variant.description && <p className="mt-4 font-body text-sm leading-6 text-muted">{variant.description}</p>}
             {variant.dimensions.length > 0 && (
               <dl className="mt-5 border-t border-foreground/10">
@@ -70,7 +77,7 @@ export default function ProductDetail({ product, initialCode }: { product: Catal
             )}
           </div>
           <div>
-          <div className="mb-4"><QuantitySelector key={variant.id} value={quantity} max={variant.available} onChange={value => setQuantities(previous => ({ ...previous, [variant.id]: value }))} /></div>
+          <div className="mb-4 hidden md:block"><QuantitySelector key={variant.id} value={quantity} max={variant.available} onChange={value => setQuantities(previous => ({ ...previous, [variant.id]: value }))} /></div>
           {variant.available === 0 && <p className="mb-3 font-body text-sm text-muted">Sin disponibilidad por el momento.</p>}
           <button type="button" disabled={!ready || quantity === 0} onClick={() => add(variant, quantity)}
             className="block w-full border border-gold px-6 py-4 font-subtitle text-sm uppercase tracking-[0.1em] text-gold transition-colors hover:bg-gold hover:text-white disabled:opacity-50">
